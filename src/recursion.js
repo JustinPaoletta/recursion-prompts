@@ -7,32 +7,88 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+	if(n < 0){
+		return null;
+	}else if(n === 0){
+		return 1;
+	}else{
+		return n * factorial(n-1);
+	}
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+	let copy = [...array];
+	if(copy.length === 0){
+		return 0;
+	}else if (copy.length > 0){
+		return copy.pop() + sum(copy);
+	}
 };
+
+sum([1,2,3,4,5,6])
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+	let copy = [...array];
+	let flatArray = copy.flat(Infinity);
+	if(flatArray.length === 0){
+		return 0;
+	}else{
+		return flatArray.pop() + arraySum(flatArray);
+	}
 };
+
+
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+	if(n === 0){
+		return true;
+	}else if (n === 1 || n === -1){
+		return false
+	}else if (n > 1){
+		return isEven(n - 2);
+	}else if (n < -1){
+		return isEven(n + 2);
+	} 
 };
+
+isEven(17); // false
+
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
+
 var sumBelow = function(n) {
+	let start = n-1;
+
+	if(start > 0){
+		return start += sumBelow(n - 1);
+	}else{
+		return start
+	}
+	
 };
+
+sumBelow(10)
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+	let arr = [];
+	if(x === y){
+		return arr
+	}else{
+		arr.push(x)	
+	}
+	return arr.concat(range(x+1,y))
 };
+
+range(2,9)
 
 // 7. Compute the exponent of a number.
 // The exponent of a number says how many times the base number is used as a factor.
@@ -40,14 +96,38 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+	if(exp === 0){
+		return 1
+	}else if(exp < 0){
+		return 1 / base * exponent(base, exp + 1);
+	}else{
+		return base * exponent(base, exp - 1);
+	}
 };
+
+exponent(4,3)
 
 // 8. Determine if a number is a power of two.
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
+
+
 var powerOfTwo = function(n) {
+	
+	var result = n / 2;
+
+	if (n === 0 || result < 1){
+		return false;
+	}
+	if (n === 1 || result === 1){
+		return true;
+	}
+	if(result > 1){
+		return powerOfTwo(result)
+	}
 };
+
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
